@@ -1,0 +1,39 @@
+
+/* Class = "UIViewController"; title = "Bets"; ObjectID = "11Z-fH-6x2"; */
+"11Z-fH-6x2.title" = "Bets";
+
+/* Class = "UITextField"; placeholder = "confirm password"; ObjectID = "3v9-2U-SXd"; */
+"3v9-2U-SXd.placeholder" = "confirm password";
+
+/* Class = "UIButton"; normalTitle = "Register"; ObjectID = "5xu-9E-qzm"; */
+"5xu-9E-qzm.normalTitle" = "Register";
+
+/* Class = "UIViewController"; title = "My bets"; ObjectID = "BjX-1n-yG4"; */
+"BjX-1n-yG4.title" = "My bets";
+
+/* Class = "UITabBarItem"; title = "My bets"; ObjectID = "H30-Mi-l3s"; */
+"H30-Mi-l3s.title" = "My bets";
+
+/* Class = "UITextField"; placeholder = "email"; ObjectID = "NhI-8w-jgP"; */
+"NhI-8w-jgP.placeholder" = "email";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "UWi-Vr-rAN"; */
+"UWi-Vr-rAN.placeholder" = "password";
+
+/* Class = "UITextField"; placeholder = "email"; ObjectID = "Unh-jo-fVi"; */
+"Unh-jo-fVi.placeholder" = "email";
+
+/* Class = "UIButton"; normalTitle = "Log in"; ObjectID = "Z0U-jv-qGH"; */
+"Z0U-jv-qGH.normalTitle" = "Log in";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "aMt-tX-wyX"; */
+"aMt-tX-wyX.placeholder" = "password";
+
+/* Class = "UITabBarItem"; title = "Bets"; ObjectID = "hrE-Ix-gTS"; */
+"hrE-Ix-gTS.title" = "Bets";
+
+/* Class = "UIButton"; normalTitle = "Register"; ObjectID = "s3J-lJ-9pg"; */
+"s3J-lJ-9pg.normalTitle" = "Register";
+
+/* Class = "UILabel"; text = "Chatter"; ObjectID = "ylA-Cd-MLh"; */
+"ylA-Cd-MLh.text" = "Chatter";
