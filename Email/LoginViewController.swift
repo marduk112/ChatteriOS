@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
     @IBAction func clickLoginButton(sender: AnyObject) {
         if KeychainWrapper.hasValueForKey("Token"){
             let vc: AnyObject? = storyboard?.instantiateViewControllerWithIdentifier("TabBarBets")
-            showViewController(vc as! UIViewController, sender: vc)         
+            showViewController(vc as! UIViewController, sender: nil)
         }
         else {
             enableButton(false)
@@ -53,7 +53,7 @@ class LoginViewController: UIViewController {
         if dict["status"] == Status.Ok.rawValue {
             authData.userName = emailTextField.text
             let vc: AnyObject? = storyboard?.instantiateViewControllerWithIdentifier("TabBarBets")            
-            showViewController(vc as! UIViewController, sender: vc)
+            showViewController(vc as! UIViewController, sender: nil)
         }
         else {
             let alert = UIAlertView()

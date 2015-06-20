@@ -17,10 +17,10 @@ class CommentsViewController : UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         getComments()
-        notificationCenter.addObserver(self, selector: "notificationReceived:", name: GetMyBetsTaskFinishedNotificationName, object: nil)
+        notificationCenter.addObserver(self, selector: "getCommentsNotificationReceived:", name: GetMyBetsTaskFinishedNotificationName, object: nil)
         notificationCenter.addObserver(self, selector: "addCommentNotificationReceived:", name: AddCommentBetsTaskFinishedNotificationName, object: nil)
     }
-    func notificationReceived(notification: NSNotification) {
+    func getCommentsNotificationReceived(notification: NSNotification) {
         let dict = notification.userInfo as! [String:String]
         let alert = UIAlertView()
         if dict["status"] == Status.Error.rawValue {
@@ -150,7 +150,7 @@ class CommentsViewController : UIViewController, UITableViewDataSource, UITableV
         //request.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer " + authData.accessToken, forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer " + KeychainWrapper.stringForKey("Token")!, forHTTPHeaderField: "Authorization")
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             println("Response: \(response)")
             let strData = NSString(data: data, encoding: NSUTF8StringEncoding)

@@ -29,21 +29,21 @@ class LogoutViewController : UIViewController {
         alertController.addAction(logoutAction)
         presentViewController(alertController, animated: true, completion: nil)
     }
-    private func notificationReceived(notification: NSNotification) {
+    func notificationReceived(notification: NSNotification) {
         let dict = notification.userInfo as! [String:String]
-        let alert = UIAlertView()
         if dict["status"] == Status.Ok.rawValue {
             KeychainWrapper.removeObjectForKey("Token")
             authData.accessToken = ""
-            let vc: AnyObject? = storyboard?.instantiateViewControllerWithIdentifier("TabBarBets")
-            showViewController(vc as! UIViewController, sender: vc)
+            let vc: AnyObject? = storyboard?.instantiateInitialViewController()
+            showViewController(vc as! UIViewController, sender: nil)
         }
         else {
+            let alert = UIAlertView()
             alert.title = "Error"
             alert.message = dict["error"]
+            alert.addButtonWithTitle("OK")
+            alert.show()
         }
-        alert.addButtonWithTitle("OK")
-        alert.show()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
