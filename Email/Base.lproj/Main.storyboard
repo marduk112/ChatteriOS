@@ -287,7 +287,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="WbM-Zx-zvx" kind="show" identifier="" id="kdI-jj-pHj"/>
+                                            <segue destination="WbM-Zx-zvx" kind="show" identifier="BetCommentSegue" id="kdI-jj-pHj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -404,18 +404,6 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Description(optional)" translatesAutoresizingMaskIntoConstraints="NO" id="BK2-Kh-Wdj">
-                                        <rect key="frame" x="38" y="427" width="492" height="86"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <accessibility key="accessibilityConfiguration">
-                                            <accessibilityTraits key="traits" none="YES" link="YES"/>
-                                        </accessibility>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="86" id="SqC-C0-wfR"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ft9-ME-jeo">
                                         <rect key="frame" x="38" y="243" width="492" height="162"/>
                                         <date key="date" timeIntervalSinceReferenceDate="452187413.36573899">
@@ -443,6 +431,18 @@
                                             <action selector="clickCreateBetButton:" destination="0Po-Wc-gfE" eventType="touchUpInside" id="e09-sg-UjJ"/>
                                         </connections>
                                     </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Description(optional)" translatesAutoresizingMaskIntoConstraints="NO" id="BK2-Kh-Wdj">
+                                        <rect key="frame" x="38" y="427" width="492" height="86"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" none="YES" link="YES"/>
+                                        </accessibility>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="86" id="SqC-C0-wfR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="ktv-6n-Yzw" firstAttribute="leading" secondItem="lrF-AV-Ek3" secondAttribute="leading" id="122-Wd-ko2"/>
@@ -563,16 +563,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0U-jv-qGH">
-                                <rect key="frame" x="481" y="252" width="52" height="35"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Log in">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="clickLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YbQ-dT-GV1"/>
-                                </connections>
-                            </button>
                             <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QSx-e5-ZYI">
                                 <rect key="frame" x="290" y="300" width="20" height="20"/>
                             </activityIndicatorView>
@@ -588,6 +578,16 @@
                                 </state>
                                 <connections>
                                     <segue destination="4Ta-Tz-e6k" kind="show" id="9DY-c9-LWh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0U-jv-qGH">
+                                <rect key="frame" x="481" y="252" width="52" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Log in">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YbQ-dT-GV1"/>
                                 </connections>
                             </button>
                         </subviews>

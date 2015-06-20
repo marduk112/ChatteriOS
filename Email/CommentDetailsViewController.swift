@@ -18,8 +18,8 @@ class CommentDetailsViewController : UIViewController {
         super.viewDidLoad()
         if let comment = comment {
             userLabel.text = "username \(comment.UserName)"
-            commentLabel.text = "comment \(comment.Comment)"
-            dateCreatedLabel.text = "date created \(comment.DateCreated)"
+            commentLabel.text = "Comment:\n \(comment.Comment)"
+            dateCreatedLabel.text = "Date created:\n \(NSDateFormatter.localizedStringFromDate(comment.DateCreated, dateStyle: .ShortStyle, timeStyle: .ShortStyle))"
         }
     }
     

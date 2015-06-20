@@ -19,6 +19,14 @@ class CommentsViewController : UIViewController, UITableViewDataSource, UITableV
         getComments()
         notificationCenter.addObserver(self, selector: "getCommentsNotificationReceived:", name: GetMyBetsTaskFinishedNotificationName, object: nil)
         notificationCenter.addObserver(self, selector: "addCommentNotificationReceived:", name: AddCommentBetsTaskFinishedNotificationName, object: nil)
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: "refreshMethod:", forControlEvents: .ValueChanged)
+        tableView.addSubview(refresh)
+    }
+    func refreshMethod(refreshControl: UIRefreshControl){
+        println("refresh")
+        getComments()
+        refreshControl.endRefreshing()
     }
     func getCommentsNotificationReceived(notification: NSNotification) {
         let dict = notification.userInfo as! [String:String]
@@ -97,20 +105,19 @@ class CommentsViewController : UIViewController, UITableViewDataSource, UITableV
             components.second = -secondOffsetFromGMT()
             let date = calendar?.dateByAddingComponents(components, toDate: NSDate(), options: nil)
             
-            newComment.DateCreated = date!           
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            let parameters = ["Commment" : newComment.Comment, "DateCreated" : dateFormatter.stringFromDate(newComment.DateCreated),
-                "BetId" : String(newComment.BetId)]
-            self.addComment(parameters)
-            self.tableView.reloadData()
+            newComment.DateCreated = date!
+            self.addComment(newComment)
         }
         
         alertController.addAction(cancelAction)
         alertController.addAction(saveAction)
         presentViewController(alertController, animated: true, completion: nil)
     }
-    func addComment(parameters: [String: String!]) {
+    func addComment(newComment: BetComment) {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let parameters = ["Commment" : newComment.Comment, "DateCreated" : dateFormatter.stringFromDate(newComment.DateCreated),
+            "BetId" : String(newComment.BetId)]
         let request : NSMutableURLRequest = NSMutableURLRequest()
         request.URL = NSURL(string: restServiceUrl + "/api/BetComments")
         let session = NSURLSession.sharedSession()
@@ -134,8 +141,11 @@ class CommentsViewController : UIViewController, UITableViewDataSource, UITableV
                 })
             }
             else {
+                self.commentList.append(newComment)                
+                self.commentList.sort({ $0.DateCreated.compare($1.DateCreated) == NSComparisonResult.OrderedDescending })
                 dispatch_async(dispatch_get_main_queue(), {
                     NSNotificationCenter.defaultCenter().postNotificationName(AddCommentBetsTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Ok.rawValue])
+                    self.tableView.reloadData()
                 })
             }
         })
