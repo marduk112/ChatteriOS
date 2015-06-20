@@ -25,6 +25,7 @@
 		34997DCF1AF3CC1A0045B70B /* Bet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34997DCE1AF3CC1A0045B70B /* Bet.swift */; };
 		34997DD11AF3CF740045B70B /* BetDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34997DD01AF3CF740045B70B /* BetDetailsViewController.swift */; };
 		34997DD31AF3D3410045B70B /* CreateBetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34997DD21AF3D3410045B70B /* CreateBetViewController.swift */; };
+		34D2B39D1B3605C00032A11A /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D2B39C1B3605C00032A11A /* LogoutViewController.swift */; };
 		B0B4EFB8DE730CDA14F3BAD7 /* Pods_Email.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8B55674E5616EF271A6BEA /* Pods_Email.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		34997DCE1AF3CC1A0045B70B /* Bet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bet.swift; sourceTree = "<group>"; };
 		34997DD01AF3CF740045B70B /* BetDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetDetailsViewController.swift; sourceTree = "<group>"; };
 		34997DD21AF3D3410045B70B /* CreateBetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateBetViewController.swift; sourceTree = "<group>"; };
+		34D2B39C1B3605C00032A11A /* LogoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		87A871C12865A612342AEEC2 /* Pods-Email.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Email.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Email/Pods-Email.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,6 +111,7 @@
 				34997DD21AF3D3410045B70B /* CreateBetViewController.swift */,
 				34501AC71B11E6F100611306 /* CommentsViewController.swift */,
 				34501ACE1B11F1D000611306 /* CommentDetailsViewController.swift */,
+				34D2B39C1B3605C00032A11A /* LogoutViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				347B67741AE2A470003DCEE1 /* AppDelegate.swift in Sources */,
 				34501ACF1B11F1D000611306 /* CommentDetailsViewController.swift in Sources */,
 				34997DD31AF3D3410045B70B /* CreateBetViewController.swift in Sources */,
+				34D2B39D1B3605C00032A11A /* LogoutViewController.swift in Sources */,
 				34997DCF1AF3CC1A0045B70B /* Bet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

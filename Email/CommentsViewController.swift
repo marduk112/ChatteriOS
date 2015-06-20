@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftKeychainWrapper
 class CommentsViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     var commentList: [BetComment] = []
     let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -118,7 +119,7 @@ class CommentsViewController : UIViewController, UITableViewDataSource, UITableV
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer " + authData.accessToken, forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer " + KeychainWrapper.stringForKey("Token")!, forHTTPHeaderField: "Authorization")
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             println("Response: \(response)")
             let strData = NSString(data: data, encoding: NSUTF8StringEncoding)

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 class CreateBetViewController : UIViewController {
     
     let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -126,7 +127,7 @@ class CreateBetViewController : UIViewController {
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer " + authData.accessToken, forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer " + KeychainWrapper.stringForKey("Token")!, forHTTPHeaderField: "Authorization")
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             println("Response: \(response)")
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)

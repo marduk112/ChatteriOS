@@ -24,6 +24,8 @@ let GetBetsTaskFinishedNotificationName = "GetBetsTaskFinishedNotificationName"
 let GetCommentBetsTaskFinishedNotificationName = "GetCommentBetsTaskFinishedNotificationName"
 let AddCommentBetsTaskFinishedNotificationName = "AddCommentBetsTaskFinishedNotificationName"
 let GetMyBetsTaskFinishedNotificationName = "GetMyBetsTaskFinishedNotificationName"
+let LogoutTaskFinishedNotificationName = "LogoutTaskFinishedNotificationName"
+let LogoutTaskStartNotificationName = "LogoutTaskStartNotificationName"
 func secondOffsetFromGMT() -> Int { return NSTimeZone.systemTimeZone().secondsFromGMT }
 public class Reachability {
     class func checkConnectedToNetwork() {

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Alamofire
+import SwiftKeychainWrapper
 
 class AuthenticationAndRegistration{    
     
@@ -83,10 +83,10 @@ class AuthenticationAndRegistration{
                 println(json)
                 if let parseJSON = json {                
                     if let httpResponse = response as? NSHTTPURLResponse {
-                        if httpResponse.statusCode == 200 {
-                            authData.accessToken = parseJSON["access_token"] as! String
+                        if httpResponse.statusCode == 200 {                           
                             authData.expiresIn = parseJSON["expires_in"] as! Int
                             authData.tokenType = parseJSON["token_type"] as! String
+                            KeychainWrapper.setString(parseJSON["access_token"] as! String, forKey: "Token")
                             dispatch_async(dispatch_get_main_queue(), {
                                 NSNotificationCenter.defaultCenter().postNotificationName(AuthTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Ok.rawValue])
                             })
