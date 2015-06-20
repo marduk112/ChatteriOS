@@ -37,9 +37,7 @@ class BetDetailsViewController: UIViewController{
     @IBAction func clickToBetButton(sender: AnyObject) {
         let alert = UIAlertController()
         alert.title = "Question"
-        alert.message = "Are you sure?"
-        let s = UISwitch()
-        alert.view.addSubview(s)
+        alert.message = "Are you sure?"      
         let addAction = UIAlertAction(title: "Yes", style: .Default, handler: { (action) -> Void in
             
         })

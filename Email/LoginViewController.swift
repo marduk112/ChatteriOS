@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class LoginViewController: UIViewController {
     
@@ -19,8 +20,13 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var registerButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        notificationCenter.addObserver(self, selector: "notificationReceived:", name: AuthTaskFinishedNotificationName, object: nil)
-        //Reachability.checkConnectedToNetwork()
+        if KeychainWrapper.hasValueForKey("Token"){
+            let vc: AnyObject? = storyboard?.instantiateViewControllerWithIdentifier("TabBarBets")
+            showViewController(vc as! UIViewController, sender: vc)
+        }
+        else {
+            notificationCenter.addObserver(self, selector: "notificationReceived:", name: AuthTaskFinishedNotificationName, object: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,7 +38,7 @@ class LoginViewController: UIViewController {
         hiddenButton(true)
         activityIndicator.startAnimating()
         let auth = AuthenticationAndRegistration()
-        auth.authentication(emailTextField.text, password: passwordTextField.text)        
+        auth.authentication(emailTextField.text, password: passwordTextField.text)
     }
     
     deinit {
@@ -46,6 +52,7 @@ class LoginViewController: UIViewController {
         if dict["status"] == Status.Ok.rawValue {
             authData.userName = emailTextField.text
             let vc: AnyObject? = storyboard?.instantiateViewControllerWithIdentifier("TabBarBets")
+            KeychainWrapper.setString(authData.accessToken, forKey: "Token")
             showViewController(vc as! UIViewController, sender: vc)
         }
         else {
