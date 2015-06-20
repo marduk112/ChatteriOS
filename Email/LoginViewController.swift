@@ -20,13 +20,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var registerButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        if KeychainWrapper.hasValueForKey("Token"){
-            let vc: AnyObject? = storyboard?.instantiateViewControllerWithIdentifier("TabBarBets")
-            showViewController(vc as! UIViewController, sender: vc)
-        }
-        else {
-            notificationCenter.addObserver(self, selector: "notificationReceived:", name: AuthTaskFinishedNotificationName, object: nil)
-        }
+        notificationCenter.addObserver(self, selector: "notificationReceived:", name: AuthTaskFinishedNotificationName, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,10 +29,16 @@ class LoginViewController: UIViewController {
     }
    
     @IBAction func clickLoginButton(sender: AnyObject) {
-        hiddenButton(true)
-        activityIndicator.startAnimating()
-        let auth = AuthenticationAndRegistration()
-        auth.authentication(emailTextField.text, password: passwordTextField.text)
+        if KeychainWrapper.hasValueForKey("Token"){
+            let vc: AnyObject? = storyboard?.instantiateViewControllerWithIdentifier("TabBarBets")
+            //showViewController(vc as! UIViewController, sender: vc)
+        }
+        //else {
+            enableButton(false)
+            activityIndicator.startAnimating()
+            let auth = AuthenticationAndRegistration()
+            auth.authentication(emailTextField.text, password: passwordTextField.text)
+        //}
     }
     
     deinit {
@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
     
     func notificationReceived(notification: NSNotification) {
         let dict = notification.userInfo as! [String:String]
-        hiddenButton(false)
+        enableButton(true)
         activityIndicator.stopAnimating()
         if dict["status"] == Status.Ok.rawValue {
             authData.userName = emailTextField.text
@@ -64,9 +64,9 @@ class LoginViewController: UIViewController {
         }
     }
     
-    private func hiddenButton(isHidden: Bool) {
-        loginButton.hidden = isHidden
-        registerButton.hidden = isHidden
+    private func enableButton(isEnabled: Bool) {
+        loginButton.enabled = isEnabled
+        registerButton.enabled = isEnabled
     }
 }
 

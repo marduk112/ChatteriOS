@@ -25,22 +25,13 @@ class BetDetailsViewController: UIViewController{
             endDateLabel.text = "End date: \(bet.EndDate)"
             descriptionLabel.text = "Description:\n" + bet.Description
             requiredPointsLabel.text = "Required points: \(bet.RequiredPoints)"
-            ownerLabel.text = "Owner: \(bet.User.UserName)"            
+            ownerLabel.text = "Owner: \(bet.User.UserName)"
+            currentlyConsiderationBet = bet
         }        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func clickToBetButton(sender: AnyObject) {
-        let alert = UIAlertController()
-        alert.title = "Question"
-        alert.message = "Are you sure?"      
-        let addAction = UIAlertAction(title: "Yes", style: .Default, handler: { (action) -> Void in
-            
-        })
-    }
-    
+    }   
 }

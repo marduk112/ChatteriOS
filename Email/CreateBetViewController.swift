@@ -17,9 +17,16 @@ class CreateBetViewController : UIViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
-    
+    @IBOutlet weak var createBetButton: UIButton!
+    var actualDate: NSDate?
+    var endDate: NSDate?
+    var betId: Int?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        descriptionTextView.layer.borderColor = UIColor.blackColor().CGColor
+        descriptionTextView.layer.cornerRadius = 15.0
+        
         let currentDate = NSDate()
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         calendar?.timeZone = NSTimeZone.systemTimeZone()
@@ -42,7 +49,7 @@ class CreateBetViewController : UIViewController {
         return false
     }
     override func supportedInterfaceOrientations() -> Int {
-        return UIInterfaceOrientation.LandscapeRight.rawValue
+        return UIInterfaceOrientation.LandscapeLeft.rawValue
     }
     
     @IBAction func changeDate(sender: AnyObject) {
@@ -50,6 +57,7 @@ class CreateBetViewController : UIViewController {
     }
     
     @IBAction func clickCreateBetButton(sender: AnyObject) {
+        createBetButton.enabled = false
         var result = "false"
         if resultSwitch.on{
             result = "true"
@@ -61,8 +69,10 @@ class CreateBetViewController : UIViewController {
         components.second = -secondOffsetFromGMT()
         let date = datePicker.date
         let endDate = calendar?.dateByAddingComponents(components, toDate: date, options: nil)
+        self.endDate = endDate
         let dateFormatter = NSDateFormatter()
-        let startDate = calendar?.dateByAddingComponents(components, toDate: NSDate(), options: nil)
+        actualDate = NSDate()
+        let startDate = calendar?.dateByAddingComponents(components, toDate: actualDate!, options: nil)
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         
         let parameters = ["Title" : titleLabel.text,"DateCreated" : dateFormatter.stringFromDate(startDate!), "EndDate" : dateFormatter.stringFromDate(endDate!), "Description" : descriptionTextView.text,
@@ -83,6 +93,20 @@ class CreateBetViewController : UIViewController {
             alert.title = "Information"
             alert.message = "Bet created successfully"
             alert.addButtonWithTitle("OK")
+            let bet = Bet()
+            bet.DateCreated = actualDate!
+            bet.Description = descriptionTextView.text
+            bet.EndDate = endDate!
+            bet.RequiredPoints = pointsLabel.text.toInt()!
+            bet.Result = resultSwitch.on
+            bet.Title = titleLabel.text
+            bet.User.UserName = authData.userName
+            bet.User.Email = authData.userName
+            bet.Id = betId!
+            betList.append(bet)
+            myBetList.append(bet)
+            myBetList.sort({ $0.DateCreated.compare($1.DateCreated) == NSComparisonResult.OrderedDescending })
+            betList.sort({ $0.DateCreated.compare($1.DateCreated) == NSComparisonResult.OrderedDescending })
         }
         else {
             alert.title = "Error"
@@ -90,6 +114,7 @@ class CreateBetViewController : UIViewController {
             alert.addButtonWithTitle("OK")
         }
         alert.show()
+        createBetButton.enabled = true
     }
     
     func callRestService(parameters: [String: String!]) -> NSURLSessionDataTask {
@@ -115,10 +140,12 @@ class CreateBetViewController : UIViewController {
                 })
             }
             else {
+                let json = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &err) as! NSDictionary
+                self.betId = json["Id"] as? Int
                 dispatch_async(dispatch_get_main_queue(), {
                     NSNotificationCenter.defaultCenter().postNotificationName(CreateBetTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Ok.rawValue])
                 })
-            }
+            }           
         })
         task.resume()
         return task

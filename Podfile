@@ -5,7 +5,7 @@ use_frameworks!
 
 target 'Email' do
     pod 'SwiftKeychainWrapper', :git => 'https://github.com/jrendel/SwiftKeychainWrapper', :branch => 'master'
-    pod 'Alamofire', '~> 1.2'
+    pod 'RealmSwift'
 end
 
 target 'EmailTests' do

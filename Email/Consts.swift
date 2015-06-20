@@ -14,6 +14,7 @@ class AuthenticationData {
     var expiresIn = 0
     var userName = ""
 }
+var currentlyConsiderationBet: Bet?
 let authData = AuthenticationData()
 let restServiceUrl = "http://chatterrest.apphb.com"
 let AuthTaskFinishedNotificationName = "AuthTaskFinishedNotificationName"
@@ -21,6 +22,7 @@ let RegisterTaskFinishedNotificationName = "RegisterTaskFinishedNotificationName
 let CreateBetTaskFinishedNotificationName = "CreateBetTaskFinishedNotificationName"
 let GetBetsTaskFinishedNotificationName = "GetBetsTaskFinishedNotificationName"
 let GetCommentBetsTaskFinishedNotificationName = "GetCommentBetsTaskFinishedNotificationName"
+let AddCommentBetsTaskFinishedNotificationName = "AddCommentBetsTaskFinishedNotificationName"
 let GetMyBetsTaskFinishedNotificationName = "GetMyBetsTaskFinishedNotificationName"
 func secondOffsetFromGMT() -> Int { return NSTimeZone.systemTimeZone().secondsFromGMT }
 public class Reachability {

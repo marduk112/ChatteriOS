@@ -8,23 +8,29 @@
 
 import UIKit
 import Foundation
+import SwiftKeychainWrapper
+
 var betList: [Bet] = []
 class BetsViewController : UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet weak var tableView: UITableView!    
     let notificationCenter = NSNotificationCenter.defaultCenter()
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Reachability.checkConnectedToNetwork()
-        //if Reachability.isConnectedToNetwork() {
-            callRestService()
+        //KeychainWrapper.removeObjectForKey("Token")
+        //if !KeychainWrapper.hasValueForKey("Token") {        
         //}
-        notificationCenter.addObserver(self, selector: "notificationReceived:", name: GetBetsTaskFinishedNotificationName, object: nil)
-        /*let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "clickRefreshButton")
-        navigationItem.rightBarButtonItem = refreshButton*/
-        
-    }
-    func clickRefreshButton() {
+        //else {
         callRestService()
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: "refreshMethod:", forControlEvents: .ValueChanged)
+        tableView.addSubview(refresh)
+            //notificationCenter.addObserver(self, selector: "notificationReceived:", name: GetBetsTaskFinishedNotificationName, object: nil)
+        //}
+    }
+    func refreshMethod(refreshControl: UIRefreshControl){
+        println("refresh")
+        callRestService()
+        refreshControl.endRefreshing()
     }
     func notificationReceived(notification: NSNotification) {
         let dict = notification.userInfo as! [String:String]
@@ -50,6 +56,7 @@ class BetsViewController : UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("BetsSegueIdentifier") as! UITableViewCell
         let bet = betList[indexPath.row]
         cell.textLabel?.text = bet.Title
+        cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(bet.EndDate, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -93,19 +100,22 @@ class BetsViewController : UIViewController, UITableViewDataSource, UITableViewD
                 }
                 else {
                     let json = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &err) as! NSArray
+                    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+                    calendar?.timeZone = NSTimeZone.systemTimeZone()
+                    let components = NSDateComponents()
+                    components.calendar = calendar
+                    components.second = secondOffsetFromGMT()
                     for bet in json {
-                        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-                        calendar?.timeZone = NSTimeZone.systemTimeZone()
-                        let components = NSDateComponents()
-                        components.calendar = calendar
-                        components.second = secondOffsetFromGMT()
                         let temp = bet as! NSDictionary
                         let b = Bet()
-                        if let data: AnyObject? = temp["Title"] {
-                            b.Title = data as! String
-                        }
                         if let data: AnyObject? = temp["Id"] {
                             b.Id = data as! Int
+                            if betList.filter({ el in el.Id == (data as! Int)}).count > 0 {
+                                break
+                            }
+                        }                        
+                        if let data: AnyObject? = temp["Title"] {
+                            b.Title = data as! String
                         }
                         if let data: AnyObject? = temp["DateCreated"] {
                             b.DateCreated = NSDate.getDateFromJSON(data as! String)                            

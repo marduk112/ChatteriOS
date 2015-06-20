@@ -27,7 +27,7 @@ class RegisterViewController : UIViewController{
     }
     
     @IBAction func registerButtonPressed(sender: AnyObject) {
-        registerButton.hidden = true
+        registerButton.enabled = false
         activityIndicator.startAnimating()
         let registration = AuthenticationAndRegistration()
         registration.registration(emailTextField.text, password: passwordTextField.text, confirmPassword: confirmPasswordTextField.text)        
@@ -38,7 +38,7 @@ class RegisterViewController : UIViewController{
     
     func notificationReceived(notification: NSNotification) {
         let dict = notification.userInfo as! [String:String]
-        registerButton.hidden = false
+        registerButton.enabled = true
         activityIndicator.stopAnimating()
         let alert = UIAlertView()
         if dict["status"] == Status.Ok.rawValue {

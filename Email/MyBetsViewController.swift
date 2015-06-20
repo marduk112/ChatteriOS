@@ -8,10 +8,11 @@
 
 import UIKit
 import Foundation
+var myBetList: [Bet] = []
 class MyBetsViewController : UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet weak var tableView: UITableView!
-    var myBetList: [Bet] = []
+    
     let notificationCenter = NSNotificationCenter.defaultCenter()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,9 @@ class MyBetsViewController : UIViewController, UITableViewDataSource, UITableVie
     deinit {
         notificationCenter.removeObserver(self)
     }   
+    @IBAction func clickOnRefreshButton(sender: AnyObject) {
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -45,7 +49,8 @@ class MyBetsViewController : UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyBetsSegueIdentifier") as! UITableViewCell
         let bet = myBetList[indexPath.row]
-        cell.textLabel?.text = bet.Title        
+        cell.textLabel?.text = bet.Title
+        cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(bet.EndDate, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
         return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -56,8 +61,7 @@ class MyBetsViewController : UIViewController, UITableViewDataSource, UITableVie
         // 1. Get DetailsViewController
         // 2. Get attendee for the cell
         // 3. Assign the attendee to detailsViewController
-        if (segue.identifier == "ShowBetDetails") {
-            UIAlertView(title: "Info", message: "TEst", delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Ok").show()
+        if (segue.identifier == "ShowBetDetails") {           
             let detailsViewController = segue.destinationViewController as! BetDetailsViewController
             let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
             let bet = myBetList[indexPath!.row]
@@ -66,11 +70,7 @@ class MyBetsViewController : UIViewController, UITableViewDataSource, UITableVie
     }
     
     private func getMyBet() {
-        for bet in betList {
-            if bet.User.UserName == authData.userName {
-                myBetList.append(bet)
-            }
-        }
+        myBetList = betList.filter({ el in el.User.UserName == authData.userName})
     }
     
 }
