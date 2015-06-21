@@ -681,9 +681,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AuthAndRegImage" translatesAutoresizingMaskIntoConstraints="NO" id="SzA-Eq-gof">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="556" id="HQl-gp-dDn"/>
-                                </constraints>
                             </imageView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R92-hf-4Um">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -764,12 +761,13 @@
                             <constraint firstItem="k3F-WV-yI6" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="9Gs-R1-kQ3"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="k3F-WV-yI6" secondAttribute="bottom" constant="12" id="DzH-aC-6kK"/>
                             <constraint firstItem="k3F-WV-yI6" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="16" id="FaX-0w-wzh"/>
-                            <constraint firstItem="SzA-Eq-gof" firstAttribute="leading" secondItem="R92-hf-4Um" secondAttribute="leading" id="I9r-c2-x8e"/>
-                            <constraint firstItem="SzA-Eq-gof" firstAttribute="top" secondItem="R92-hf-4Um" secondAttribute="bottom" id="N7q-Ds-4Lg"/>
                             <constraint firstItem="R92-hf-4Um" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="O6e-mY-hZI"/>
                             <constraint firstItem="k3F-WV-yI6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="QvL-ru-Q0C"/>
-                            <constraint firstItem="SzA-Eq-gof" firstAttribute="trailing" secondItem="R92-hf-4Um" secondAttribute="trailing" id="Wbv-Pk-9pr"/>
+                            <constraint firstItem="SzA-Eq-gof" firstAttribute="leading" secondItem="R92-hf-4Um" secondAttribute="leading" id="du5-i6-Tz4"/>
                             <constraint firstItem="R92-hf-4Um" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="f7t-BL-Ama"/>
+                            <constraint firstItem="SzA-Eq-gof" firstAttribute="trailing" secondItem="R92-hf-4Um" secondAttribute="trailing" id="hU2-FE-ed0"/>
+                            <constraint firstItem="SzA-Eq-gof" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="paK-eI-rpT"/>
+                            <constraint firstItem="SzA-Eq-gof" firstAttribute="top" secondItem="k3F-WV-yI6" secondAttribute="top" id="peW-p4-zH3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="pZF-gz-3ZW"/>
@@ -800,6 +798,18 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AuthAndRegImage" translatesAutoresizingMaskIntoConstraints="NO" id="dxz-Ke-04f">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                             </imageView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rF0-bu-ae8">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Registration" id="PbF-2T-Xnn">
+                                        <barButtonItem key="leftBarButtonItem" title="Login" id="jOp-ig-4cd">
+                                            <connections>
+                                                <segue destination="BYZ-38-t0r" kind="show" id="uLS-hG-UFw"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b9D-PV-NbA">
                                 <rect key="frame" x="16" y="44" width="568" height="536"/>
                                 <subviews>
@@ -850,31 +860,19 @@
                                     <constraint firstItem="NhI-8w-jgP" firstAttribute="leading" secondItem="b9D-PV-NbA" secondAttribute="leading" constant="54" id="ugK-d2-Wsw"/>
                                 </constraints>
                             </scrollView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rF0-bu-ae8">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <items>
-                                    <navigationItem title="Registration" id="PbF-2T-Xnn">
-                                        <barButtonItem key="leftBarButtonItem" title="Login" id="jOp-ig-4cd">
-                                            <connections>
-                                                <segue destination="BYZ-38-t0r" kind="show" id="uLS-hG-UFw"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="b9D-PV-NbA" firstAttribute="top" secondItem="cFF-CN-zGg" secondAttribute="top" constant="44" id="0oT-bI-ck1"/>
                             <constraint firstAttribute="bottom" secondItem="b9D-PV-NbA" secondAttribute="bottom" constant="20" symbolic="YES" id="0xA-BK-yCc"/>
+                            <constraint firstItem="dxz-Ke-04f" firstAttribute="top" secondItem="b9D-PV-NbA" secondAttribute="top" id="93h-us-hzb"/>
                             <constraint firstItem="b9D-PV-NbA" firstAttribute="centerX" secondItem="rF0-bu-ae8" secondAttribute="centerX" id="RGw-xT-cT9"/>
                             <constraint firstItem="b9D-PV-NbA" firstAttribute="trailing" secondItem="cFF-CN-zGg" secondAttribute="trailingMargin" id="Sm1-Ij-eQI"/>
+                            <constraint firstItem="dxz-Ke-04f" firstAttribute="trailing" secondItem="rF0-bu-ae8" secondAttribute="trailing" id="TqU-vg-5bE"/>
+                            <constraint firstItem="dxz-Ke-04f" firstAttribute="leading" secondItem="rF0-bu-ae8" secondAttribute="leading" id="WbV-UG-cUC"/>
                             <constraint firstItem="b9D-PV-NbA" firstAttribute="top" secondItem="rF0-bu-ae8" secondAttribute="bottom" id="WcA-2d-TvH"/>
-                            <constraint firstItem="dxz-Ke-04f" firstAttribute="bottom" secondItem="8gF-vJ-FI2" secondAttribute="top" id="Y5G-PY-8Rr"/>
-                            <constraint firstItem="dxz-Ke-04f" firstAttribute="top" secondItem="b9D-PV-NbA" secondAttribute="top" id="awn-Hx-9di"/>
-                            <constraint firstItem="dxz-Ke-04f" firstAttribute="trailing" secondItem="rF0-bu-ae8" secondAttribute="trailing" id="da4-oO-o4v"/>
                             <constraint firstItem="rF0-bu-ae8" firstAttribute="top" secondItem="cFF-CN-zGg" secondAttribute="top" id="dlw-LG-V7H"/>
-                            <constraint firstItem="dxz-Ke-04f" firstAttribute="leading" secondItem="rF0-bu-ae8" secondAttribute="leading" id="f9z-zb-hYE"/>
+                            <constraint firstItem="dxz-Ke-04f" firstAttribute="bottom" secondItem="8gF-vJ-FI2" secondAttribute="top" id="kOx-er-M9S"/>
                             <constraint firstItem="b9D-PV-NbA" firstAttribute="leading" secondItem="cFF-CN-zGg" secondAttribute="leadingMargin" id="puE-i1-KE9"/>
                             <constraint firstItem="rF0-bu-ae8" firstAttribute="leading" secondItem="cFF-CN-zGg" secondAttribute="leading" id="umH-nd-Z72"/>
                         </constraints>
