@@ -9,15 +9,16 @@
 import Foundation
 import UIKit
 import SwiftKeychainWrapper
+var commentList: [BetComment] = []
 class CommentsViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
-    var commentList: [BetComment] = []
+    
     let notificationCenter = NSNotificationCenter.defaultCenter()
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getComments()
-        notificationCenter.addObserver(self, selector: "getCommentsNotificationReceived:", name: GetMyBetsTaskFinishedNotificationName, object: nil)
+        BetsRESTServices.getComments()
+        notificationCenter.addObserver(self, selector: "getCommentsNotificationReceived:", name: GetCommentBetsTaskFinishedNotificationName, object: nil)
         notificationCenter.addObserver(self, selector: "addCommentNotificationReceived:", name: AddCommentBetsTaskFinishedNotificationName, object: nil)
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: "refreshMethod:", forControlEvents: .ValueChanged)
@@ -25,18 +26,23 @@ class CommentsViewController : UIViewController, UITableViewDataSource, UITableV
     }
     func refreshMethod(refreshControl: UIRefreshControl){
         println("refresh")
-        getComments()
+        BetsRESTServices.getComments()
         refreshControl.endRefreshing()
     }
     func getCommentsNotificationReceived(notification: NSNotification) {
         let dict = notification.userInfo as! [String:String]
-        let alert = UIAlertView()
         if dict["status"] == Status.Error.rawValue {
+            let alert = UIAlertView()
             alert.title = "Error"
             alert.message = dict["error"]
             alert.addButtonWithTitle("OK")
+            alert.show()
         }
-        alert.show()
+        else {
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+        }
     }
     func addCommentNotificationReceived(notification: NSNotification) {
         let dict = notification.userInfo as! [String:String]
@@ -48,8 +54,11 @@ class CommentsViewController : UIViewController, UITableViewDataSource, UITableV
         }
         else {
             alert.title = "Info"
-            alert.message = "Bet created successfully"
+            alert.message = "Comment created successfully"
             alert.addButtonWithTitle("OK")
+            dispatch_async(dispatch_get_main_queue(), {                
+                self.tableView.reloadData()
+            })
         }
         alert.show()
     }
@@ -106,117 +115,13 @@ class CommentsViewController : UIViewController, UITableViewDataSource, UITableV
             let date = calendar?.dateByAddingComponents(components, toDate: NSDate(), options: nil)
             
             newComment.DateCreated = date!
-            self.addComment(newComment)
+            BetsRESTServices.addComment(newComment)
         }
         
         alertController.addAction(cancelAction)
         alertController.addAction(saveAction)
         presentViewController(alertController, animated: true, completion: nil)
     }
-    func addComment(newComment: BetComment) {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        let parameters = ["Commment" : newComment.Comment, "DateCreated" : dateFormatter.stringFromDate(newComment.DateCreated),
-            "BetId" : String(newComment.BetId)]
-        let request : NSMutableURLRequest = NSMutableURLRequest()
-        request.URL = NSURL(string: restServiceUrl + "/api/BetComments")
-        let session = NSURLSession.sharedSession()
-        request.HTTPMethod = "POST"
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer " + KeychainWrapper.stringForKey("Token")!, forHTTPHeaderField: "Authorization")
-        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
-            let strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
-            // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
-            if(error != nil) {
-                println(error.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
-                dispatch_async(dispatch_get_main_queue(), {
-                    NSNotificationCenter.defaultCenter().postNotificationName(AddCommentBetsTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : error.localizedDescription])
-                })
-            }
-            else {
-                self.commentList.append(newComment)                
-                self.commentList.sort({ $0.DateCreated.compare($1.DateCreated) == NSComparisonResult.OrderedDescending })
-                dispatch_async(dispatch_get_main_queue(), {
-                    NSNotificationCenter.defaultCenter().postNotificationName(AddCommentBetsTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Ok.rawValue])
-                    self.tableView.reloadData()
-                })
-            }
-        })
-        task.resume()
-    }
-    func getComments() {
-        let request : NSMutableURLRequest = NSMutableURLRequest()
-        request.URL = NSURL(string: restServiceUrl + "/api/BetComments")
-        let session = NSURLSession.sharedSession()
-        request.HTTPMethod = "GET"
-        var err: NSError?
-        //request.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer " + KeychainWrapper.stringForKey("Token")!, forHTTPHeaderField: "Authorization")
-        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
-            let strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
-            // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
-            if(error != nil) {
-                println(error.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
-                dispatch_async(dispatch_get_main_queue(), {
-                    NSNotificationCenter.defaultCenter().postNotificationName(GetCommentBetsTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : error.localizedDescription])
-                })
-            }
-            else {
-                let json = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &err) as! NSArray
-                for bet in json {
-                    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-                    calendar?.timeZone = NSTimeZone.systemTimeZone()
-                    let components = NSDateComponents()
-                    components.calendar = calendar
-                    components.second = secondOffsetFromGMT()
-                    let temp = bet as! NSDictionary
-                    let b = BetComment()
-                    if let data:AnyObject? = temp["BetId"]{
-                        b.BetId = data as! Int
-                        if let t = currentlyConsiderationBet?.Id {
-                            if t != (data as! Int) {
-                                break
-                            }
-                        }
-                    }
-                    if let data:AnyObject? = temp["Id"]{
-                        b.Id = data as! Int
-                        if self.commentList.filter({ el in el.Id == (data as! Int)}).count > 0 {
-                            break
-                        }
-                    }
-                    if let data:AnyObject? = temp["Commment"]{
-                        b.Comment = data as! String
-                    }
-                    if let data:AnyObject? = temp["DateCreated"]{
-                        let date = data as! String
-                        b.DateCreated = NSDate.getDateFromJSON(date)
-                        b.DateCreated = calendar!.dateByAddingComponents(components, toDate: b.DateCreated, options: nil)!
-                    }
-                    if let data:AnyObject? = temp["UserName"]{
-                        b.UserName = data as! String
-                    }
-                    self.commentList.append(b)
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.tableView.reloadData()
-                    })
-                }
-                self.commentList.sort({ $0.DateCreated.compare($1.DateCreated) == NSComparisonResult.OrderedDescending })
-            }
-        })
-        task.resume()
-    }
+    
+    
 }

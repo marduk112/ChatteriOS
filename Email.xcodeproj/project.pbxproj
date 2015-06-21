@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		341288A11B37042100B00ED9 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341288A01B37042100B00ED9 /* UserInfoViewController.swift */; };
+		341288A31B3705F300B00ED9 /* BetsRESTServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341288A21B3705F300B00ED9 /* BetsRESTServices.swift */; };
 		344D182A1AEC05CB00A70C5A /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344D18291AEC05CB00A70C5A /* Consts.swift */; };
 		34501AC81B11E6F100611306 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34501AC71B11E6F100611306 /* CommentsViewController.swift */; };
 		34501AC91B11E76100611306 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34501ACB1B11E76100611306 /* Main.storyboard */; };
@@ -22,6 +24,8 @@
 		347B67811AE2A470003DCEE1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347B677F1AE2A470003DCEE1 /* LaunchScreen.xib */; };
 		347B678D1AE2A470003DCEE1 /* EmailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347B678C1AE2A470003DCEE1 /* EmailTests.swift */; };
 		347B67981AE2A537003DCEE1 /* AuthenticationAndRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347B67971AE2A537003DCEE1 /* AuthenticationAndRegistration.swift */; };
+		3495FD531B36D0320006137D /* BetParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3495FD521B36D0320006137D /* BetParticipantsViewController.swift */; };
+		3495FD551B36D1CC0006137D /* BetParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3495FD541B36D1CC0006137D /* BetParticipant.swift */; };
 		34997DCF1AF3CC1A0045B70B /* Bet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34997DCE1AF3CC1A0045B70B /* Bet.swift */; };
 		34997DD11AF3CF740045B70B /* BetDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34997DD01AF3CF740045B70B /* BetDetailsViewController.swift */; };
 		34997DD31AF3D3410045B70B /* CreateBetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34997DD21AF3D3410045B70B /* CreateBetViewController.swift */; };
@@ -55,6 +59,8 @@
 		13F2B82D6114FFC8FBF4AFBB /* Pods-Email.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Email.release.xcconfig"; path = "Pods/Target Support Files/Pods-Email/Pods-Email.release.xcconfig"; sourceTree = "<group>"; };
 		2E8B55674E5616EF271A6BEA /* Pods_Email.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Email.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34047AED1B3584AE00D03409 /* SwiftKeychainWrapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftKeychainWrapper.framework; path = "Pods/../build/Debug-iphoneos/Pods-Email/SwiftKeychainWrapper.framework"; sourceTree = "<group>"; };
+		341288A01B37042100B00ED9 /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		341288A21B3705F300B00ED9 /* BetsRESTServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetsRESTServices.swift; sourceTree = "<group>"; };
 		344D18291AEC05CB00A70C5A /* Consts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
 		34501AC71B11E6F100611306 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		34501ACA1B11E76100611306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -74,6 +80,8 @@
 		347B678B1AE2A470003DCEE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		347B678C1AE2A470003DCEE1 /* EmailTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTests.swift; sourceTree = "<group>"; };
 		347B67971AE2A537003DCEE1 /* AuthenticationAndRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationAndRegistration.swift; sourceTree = "<group>"; };
+		3495FD521B36D0320006137D /* BetParticipantsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetParticipantsViewController.swift; sourceTree = "<group>"; };
+		3495FD541B36D1CC0006137D /* BetParticipant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetParticipant.swift; sourceTree = "<group>"; };
 		34997DCE1AF3CC1A0045B70B /* Bet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bet.swift; sourceTree = "<group>"; };
 		34997DD01AF3CF740045B70B /* BetDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetDetailsViewController.swift; sourceTree = "<group>"; };
 		34997DD21AF3D3410045B70B /* CreateBetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateBetViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +120,8 @@
 				34501AC71B11E6F100611306 /* CommentsViewController.swift */,
 				34501ACE1B11F1D000611306 /* CommentDetailsViewController.swift */,
 				34D2B39C1B3605C00032A11A /* LogoutViewController.swift */,
+				3495FD521B36D0320006137D /* BetParticipantsViewController.swift */,
+				341288A01B37042100B00ED9 /* UserInfoViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -182,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				347B67971AE2A537003DCEE1 /* AuthenticationAndRegistration.swift */,
+				341288A21B3705F300B00ED9 /* BetsRESTServices.swift */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -191,6 +202,7 @@
 			children = (
 				34997DCE1AF3CC1A0045B70B /* Bet.swift */,
 				34501ACC1B11EAD000611306 /* BetComment.swift */,
+				3495FD541B36D1CC0006137D /* BetParticipant.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -371,11 +383,15 @@
 				345D55811AF292740014280F /* BetsViewController.swift in Sources */,
 				347B67981AE2A537003DCEE1 /* AuthenticationAndRegistration.swift in Sources */,
 				344D182A1AEC05CB00A70C5A /* Consts.swift in Sources */,
+				341288A31B3705F300B00ED9 /* BetsRESTServices.swift in Sources */,
 				345D9B981AE3B40F00FB2915 /* RegisterViewController.swift in Sources */,
 				347B67791AE2A470003DCEE1 /* LoginViewController.swift in Sources */,
 				347B67771AE2A470003DCEE1 /* Email.xcdatamodeld in Sources */,
 				34501AC81B11E6F100611306 /* CommentsViewController.swift in Sources */,
+				3495FD531B36D0320006137D /* BetParticipantsViewController.swift in Sources */,
+				3495FD551B36D1CC0006137D /* BetParticipant.swift in Sources */,
 				347B67741AE2A470003DCEE1 /* AppDelegate.swift in Sources */,
+				341288A11B37042100B00ED9 /* UserInfoViewController.swift in Sources */,
 				34501ACF1B11F1D000611306 /* CommentDetailsViewController.swift in Sources */,
 				34997DD31AF3D3410045B70B /* CreateBetViewController.swift in Sources */,
 				34D2B39D1B3605C00032A11A /* LogoutViewController.swift in Sources */,

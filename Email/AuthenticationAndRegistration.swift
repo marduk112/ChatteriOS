@@ -87,6 +87,11 @@ class AuthenticationAndRegistration{
                             authData.expiresIn = parseJSON["expires_in"] as! Int
                             authData.tokenType = parseJSON["token_type"] as! String
                             KeychainWrapper.setString(parseJSON["access_token"] as! String, forKey: "Token")
+                            KeychainWrapper.setString(parseJSON["userName"] as! String, forKey: "UserName")
+                            KeychainWrapper.setString(String(parseJSON["expires_in"] as! Int), forKey: "ExpiresIn")
+                            let formatter = NSDateFormatter()
+                            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                            KeychainWrapper.setString(formatter.stringFromDate(NSDate()), forKey: "DateCreated")
                             dispatch_async(dispatch_get_main_queue(), {
                                 NSNotificationCenter.defaultCenter().postNotificationName(AuthTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Ok.rawValue])
                             })

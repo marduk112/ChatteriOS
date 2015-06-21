@@ -20,27 +20,32 @@ class BetsViewController : UIViewController, UITableViewDataSource, UITableViewD
         //if !KeychainWrapper.hasValueForKey("Token") {        
         //}
         //else {
-        callRestService()
+        BetsRESTServices.getBetsRestService()
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: "refreshMethod:", forControlEvents: .ValueChanged)
         tableView.addSubview(refresh)
-            //notificationCenter.addObserver(self, selector: "notificationReceived:", name: GetBetsTaskFinishedNotificationName, object: nil)
+        notificationCenter.addObserver(self, selector: "notificationReceived:", name: GetBetsTaskFinishedNotificationName, object: nil)
         //}
     }
     func refreshMethod(refreshControl: UIRefreshControl){
         println("refresh")
-        callRestService()
+        BetsRESTServices.getBetsRestService()
         refreshControl.endRefreshing()
     }
     func notificationReceived(notification: NSNotification) {
         let dict = notification.userInfo as! [String:String]
-        let alert = UIAlertView()
         if dict["status"] == Status.Error.rawValue {
+            let alert = UIAlertView()
             alert.title = "Error"
             alert.message = dict["error"]
             alert.addButtonWithTitle("OK")
+            alert.show()
         }
-        alert.show()
+        else {
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+        }        
     }
     deinit {
         notificationCenter.removeObserver(self)
@@ -75,76 +80,4 @@ class BetsViewController : UIViewController, UITableViewDataSource, UITableViewD
         }
     }
    
-        func callRestService() {
-            let request : NSMutableURLRequest = NSMutableURLRequest()
-            request.URL = NSURL(string: restServiceUrl + "/api/Bets")
-            let session = NSURLSession.sharedSession()
-            request.HTTPMethod = "GET"
-            var err: NSError?
-            //request.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &err)
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue("Bearer " + KeychainWrapper.stringForKey("Token")!, forHTTPHeaderField: "Authorization")           
-            let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-                println("Response: \(response)")
-                let strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Body: \(strData)")                
-                // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
-                if(error != nil) {
-                    println(error.localizedDescription)
-                    let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    println("Error could not parse JSON: '\(jsonStr)'")
-                    dispatch_async(dispatch_get_main_queue(), {
-                        NSNotificationCenter.defaultCenter().postNotificationName(GetBetsTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : error.localizedDescription])
-                    })
-                }
-                else {
-                    let json = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &err) as! NSArray
-                    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-                    calendar?.timeZone = NSTimeZone.systemTimeZone()
-                    let components = NSDateComponents()
-                    components.calendar = calendar
-                    components.second = secondOffsetFromGMT()
-                    for bet in json {
-                        let temp = bet as! NSDictionary
-                        let b = Bet()
-                        if let data: AnyObject? = temp["Id"] {
-                            b.Id = data as! Int
-                            if betList.filter({ el in el.Id == (data as! Int)}).count > 0 {
-                                break
-                            }
-                        }                        
-                        if let data: AnyObject? = temp["Title"] {
-                            b.Title = data as! String
-                        }
-                        if let data: AnyObject? = temp["DateCreated"] {
-                            b.DateCreated = NSDate.getDateFromJSON(data as! String)                            
-                            b.DateCreated = calendar!.dateByAddingComponents(components, toDate: b.DateCreated, options: nil)!
-                        }
-                        if let data: AnyObject? = temp["EndDate"] {
-                            b.EndDate = NSDate.getDateFromJSON(data as! String)
-                            b.EndDate = calendar!.dateByAddingComponents(components, toDate: b.EndDate, options: nil)!
-                        }
-                        if let data: AnyObject? = temp["Description"] {
-                            b.Description = data as! String
-                        }
-                        if let data: AnyObject? = temp["RequiredPoints"] {
-                            b.RequiredPoints = data as! Int
-                        }
-                        if let data: AnyObject? = temp["Result"] {
-                            b.Result = data as! Bool
-                        }
-                        if let data: AnyObject? = temp["UserName"] {
-                            b.User.UserName = data as! String
-                        }
-                        betList.append(b)
-                        dispatch_async(dispatch_get_main_queue(), {                            
-                            self.tableView.reloadData()
-                        })
-                    }
-                    betList.sort({ $0.DateCreated.compare($1.DateCreated) == NSComparisonResult.OrderedDescending })
-                }
-            })
-            task.resume()          
-        }
 }

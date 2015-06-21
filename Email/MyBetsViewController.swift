@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import SwiftKeychainWrapper
 var myBetList: [Bet] = []
 class MyBetsViewController : UIViewController, UITableViewDataSource, UITableViewDelegate{
     
@@ -69,8 +70,9 @@ class MyBetsViewController : UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    private func getMyBet() {
-        myBetList = betList.filter({ el in el.User.UserName == authData.userName})
+    func getMyBet() {
+        myBetList = betList.filter({ el in el.User.UserName == KeychainWrapper.stringForKey("UserName")}) as [Bet]
+        tableView.reloadData()        
     }
     
 }

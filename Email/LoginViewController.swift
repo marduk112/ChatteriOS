@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         notificationCenter.addObserver(self, selector: "notificationReceived:", name: AuthTaskFinishedNotificationName, object: nil)
-        //KeychainWrapper.removeObjectForKey("Token")
+        KeychainWrapper.removeObjectForKey("Token")
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,16 +30,26 @@ class LoginViewController: UIViewController {
     }
    
     @IBAction func clickLoginButton(sender: AnyObject) {
-        if KeychainWrapper.hasValueForKey("Token"){
-            let vc: AnyObject? = storyboard?.instantiateViewControllerWithIdentifier("TabBarBets")
-            showViewController(vc as! UIViewController, sender: nil)
+        
+        if KeychainWrapper.hasValueForKey("Token")  {
+            let timeout = KeychainWrapper.stringForKey("ExpiresIn")
+            let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+            calendar?.timeZone = NSTimeZone.systemTimeZone()
+            let components = NSDateComponents()
+            components.calendar = calendar
+            components.second = timeout!.toInt()!
+            let dateCreated = NSDate.getDateFromJSON(KeychainWrapper.stringForKey("DateCreated")!)
+            let endDate = calendar?.dateByAddingComponents(components, toDate: dateCreated, options: nil)
+            if NSDate().compare(endDate!) == NSComparisonResult.OrderedAscending {
+                let vc: AnyObject? = storyboard?.instantiateViewControllerWithIdentifier("TabBarBets")
+                showViewController(vc as! UIViewController, sender: nil)
+            }
         }
-        else {
-            enableButton(false)
-            activityIndicator.startAnimating()
-            let auth = AuthenticationAndRegistration()
-            auth.authentication(emailTextField.text, password: passwordTextField.text)
-        }
+        enableButton(false)
+        activityIndicator.startAnimating()
+        let auth = AuthenticationAndRegistration()
+        auth.authentication(emailTextField.text, password: passwordTextField.text)
+        println("s")
     }
     
     deinit {

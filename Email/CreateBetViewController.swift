@@ -78,7 +78,8 @@ class CreateBetViewController : UIViewController {
         
         let parameters = ["Title" : titleLabel.text,"DateCreated" : dateFormatter.stringFromDate(startDate!), "EndDate" : dateFormatter.stringFromDate(endDate!), "Description" : descriptionTextView.text,
             "RequiredPoints" : pointsLabel.text, "Result" : result]
-        callRestService(parameters)
+        betId = 0;
+        BetsRESTServices.createBetRestService(parameters, betId: &betId!)
     }
     func setDatetoLabel(){
         var dateFormatter = NSDateFormatter()
@@ -118,37 +119,5 @@ class CreateBetViewController : UIViewController {
         createBetButton.enabled = true
     }
     
-    func callRestService(parameters: [String: String!]) -> NSURLSessionDataTask {
-        var request : NSMutableURLRequest = NSMutableURLRequest()
-        request.URL = NSURL(string: restServiceUrl + "/api/Bets")
-        var session = NSURLSession.sharedSession()
-        request.HTTPMethod = "POST"
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer " + KeychainWrapper.stringForKey("Token")!, forHTTPHeaderField: "Authorization")
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
-            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
-            if(error != nil) {
-                println(err!.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
-                dispatch_async(dispatch_get_main_queue(), {
-                    NSNotificationCenter.defaultCenter().postNotificationName(CreateBetTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : error.localizedDescription])
-                })
-            }
-            else {
-                let json = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &err) as! NSDictionary
-                self.betId = json["Id"] as? Int
-                dispatch_async(dispatch_get_main_queue(), {
-                    NSNotificationCenter.defaultCenter().postNotificationName(CreateBetTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Ok.rawValue])
-                })
-            }           
-        })
-        task.resume()
-        return task
-    }
+    
 }

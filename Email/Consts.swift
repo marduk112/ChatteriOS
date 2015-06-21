@@ -13,6 +13,7 @@ class AuthenticationData {
     var tokenType = ""
     var expiresIn = 0
     var userName = ""
+    var points = 0
 }
 var currentlyConsiderationBet: Bet?
 let authData = AuthenticationData()
@@ -24,8 +25,11 @@ let GetBetsTaskFinishedNotificationName = "GetBetsTaskFinishedNotificationName"
 let GetCommentBetsTaskFinishedNotificationName = "GetCommentBetsTaskFinishedNotificationName"
 let AddCommentBetsTaskFinishedNotificationName = "AddCommentBetsTaskFinishedNotificationName"
 let GetMyBetsTaskFinishedNotificationName = "GetMyBetsTaskFinishedNotificationName"
+let GetParticipantsTaskFinishedNotificationName = "GetParticipantsTaskFinishedNotificationName"
+let ProceedToBetTaskFinishedNotificationName = "ProceedToBetTaskFinishedNotificationName"
 let LogoutTaskFinishedNotificationName = "LogoutTaskFinishedNotificationName"
 let LogoutTaskStartNotificationName = "LogoutTaskStartNotificationName"
+let GetUserPointsTaskStartNotificationName = "GetUserPointsTaskStartNotificationName"
 func secondOffsetFromGMT() -> Int { return NSTimeZone.systemTimeZone().secondsFromGMT }
 public class Reachability {
     class func checkConnectedToNetwork() {
