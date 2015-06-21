@@ -322,8 +322,8 @@ class BetsRESTServices {
             println("Response: \(response)")
             if let httpResponse = response as? NSHTTPURLResponse {
                 if httpResponse.statusCode == 200 {
-                    let points = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &err) as! Int
-                    authData.points = points
+                    let json = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &err) as! NSDictionary
+                    authData.points = json["Points"] as! Int
                     dispatch_async(dispatch_get_main_queue(), {
                         NSNotificationCenter.defaultCenter().postNotificationName(GetUserPointsTaskStartNotificationName, object: nil, userInfo: ["status" : Status.Ok.rawValue])
                     })
