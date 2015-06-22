@@ -52,9 +52,8 @@ class BetDetailsViewController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     @IBAction func clickProceedToBetButton(sender: AnyObject) {
-        if currentlyConsiderationBet?.EndDate.compare(NSDate()) == NSComparisonResult.OrderedDescending {
-            return
-        }
+        let userName = KeychainWrapper.stringForKey("UserName")!
+        if (currentlyConsiderationBet?.EndDate.compare(NSDate()) != NSComparisonResult.OrderedDescending || userName != currentlyConsiderationBet?.User.UserName) {
         var parameters = ["BetId" : String(currentlyConsiderationBet!.Id)]
         let alertController = UIAlertController(title: "Proceed to bet", message: "for or against", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
@@ -71,6 +70,13 @@ class BetDetailsViewController: UIViewController{
         alertController.addAction(againstAction)
         alertController.addAction(forAction)
         presentViewController(alertController, animated: true, completion: nil)
+        }
+        else {
+            let alert = UIAlertView()
+            alert.title = "Info"
+            alert.message = "You cannot procced to your own bet"
+            alert.addButtonWithTitle("OK")
+        }
     }
     
     private func proceedToBet(parameters: [String : String]) {
