@@ -7,10 +7,15 @@
 //
 
 import Foundation
-class BetComment {
-    var Id = 0
-    var Comment = ""
-    var DateCreated = NSDate()
-    var BetId = 0
-    var UserName = ""
+import RealmSwift
+class BetComment: Object {
+    dynamic var Id = 0
+    dynamic var Comment = ""
+    dynamic var DateCreated = NSDate()
+    dynamic var BetId = 0
+    dynamic var UserName = ""
+    
+    override static func primaryKey() -> String? {
+        return "Id"
+    }
 }

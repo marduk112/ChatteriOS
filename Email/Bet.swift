@@ -7,22 +7,27 @@
 //
 
 import Foundation
+import RealmSwift
 
 class ApplicationUser {
-    var Email = ""
-    var Point = 0
-    var Id = ""
-    var UserName = ""
+    dynamic var Email = ""
+    dynamic var Point = 0
+    dynamic var Id = ""
+    dynamic var UserName = ""
 }
 
-class Bet {
-    var Id = 0
-    var Title = ""
-    var DateCreated = NSDate()
-    var EndDate = NSDate()
-    var Description = ""
-    var RequiredPoints = 0
-    var Result = false
+class Bet: Object {
+    dynamic var Id = 0
+    dynamic var Title = ""
+    dynamic var DateCreated = NSDate()
+    dynamic var EndDate = NSDate()
+    dynamic var Description = ""
+    dynamic var RequiredPoints = 0
+    dynamic var Result = false
     let User = ApplicationUser()
+    
+    override static func primaryKey() -> String? {
+        return "Id"
+    }
 }
 

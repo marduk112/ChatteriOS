@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftKeychainWrapper
+import RealmSwift
 
 class BetsRESTServices {
     class func getParticipantsRestService() {
@@ -53,9 +54,13 @@ class BetsRESTServices {
                         b.UserName = data as! String
                     }
                     if let data: AnyObject? = temp["Option"] {
-                        b.Option = data as? Bool
+                        b.Option = (data as? Bool)!
                     }
-                    betParticipantsList.append(b)                    
+                    betParticipantsList.append(b)
+                    /*let realm = Realm()
+                    realm.write{
+                        realm.add(b, update: false)
+                    }*/
                 }
                 dispatch_async(dispatch_get_main_queue(), {
                     NSNotificationCenter.defaultCenter().postNotificationName(GetParticipantsTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Ok.rawValue])
@@ -191,7 +196,10 @@ class BetsRESTServices {
                         b.UserName = data as! String
                     }
                     commentList.append(b)
-                    
+                    /*let realm = Realm()
+                    realm.write{
+                        realm.add(b, update: false)
+                    }*/
                 }
                 commentList.sort({ $0.DateCreated.compare($1.DateCreated) == NSComparisonResult.OrderedDescending })
                 dispatch_async(dispatch_get_main_queue(), {
@@ -297,7 +305,15 @@ class BetsRESTServices {
                     if let data: AnyObject? = temp["UserName"] {
                         b.User.UserName = data as! String
                     }
-                    betList.append(b)                    
+                    betList.append(b)
+                    
+                    /*let realm = Realm()
+                    realm.beginWrite()
+                    realm.write{
+                        realm.add(b, update: false)
+                    }
+                    realm.commitWrite()
+                    println("REalm\n")*/
                 }
                 betList.sort({ $0.DateCreated.compare($1.DateCreated) == NSComparisonResult.OrderedDescending })
                 dispatch_async(dispatch_get_main_queue(), {

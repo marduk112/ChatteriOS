@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SwiftKeychainWrapper
+import RealmSwift
 var commentList: [BetComment] = []
 class CommentsViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -17,6 +18,11 @@ class CommentsViewController : UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        /*let list = Realm().objects(BetComment)
+        for b in list {
+            commentList.append(b)
+        }
+        commentList.sort({ $0.DateCreated.compare($1.DateCreated) == NSComparisonResult.OrderedDescending })*/
         BetsRESTServices.getComments()
         notificationCenter.addObserver(self, selector: "getCommentsNotificationReceived:", name: GetCommentBetsTaskFinishedNotificationName, object: nil)
         notificationCenter.addObserver(self, selector: "addCommentNotificationReceived:", name: AddCommentBetsTaskFinishedNotificationName, object: nil)

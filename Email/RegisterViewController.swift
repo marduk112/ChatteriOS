@@ -38,7 +38,7 @@ class RegisterViewController : UIViewController{
         else {
             let alert = UIAlertView()
             alert.title = "Error"
-            alert.message = "The request is invalid.\nThe Email field is required.\nThe Password must be at least 6 characters long."
+            alert.message = "The request is invalid.\nThe Email field is required.\nThe Password must be at least 6 characters long.(at least one big letter, one special char and one number)"
             alert.addButtonWithTitle("OK")
             alert.show()
         }

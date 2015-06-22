@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import SwiftKeychainWrapper
+import RealmSwift
 
 var betList: [Bet] = []
 class BetsViewController : UIViewController, UITableViewDataSource, UITableViewDelegate{
@@ -20,6 +21,11 @@ class BetsViewController : UIViewController, UITableViewDataSource, UITableViewD
         //if !KeychainWrapper.hasValueForKey("Token") {        
         //}
         //else {
+        /*let list = Realm().objects(Bet)
+        for b in list {
+            betList.append(b)
+        }
+        betList.sort({ $0.DateCreated.compare($1.DateCreated) == NSComparisonResult.OrderedDescending })*/
         BetsRESTServices.getBetsRestService()
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: "refreshMethod:", forControlEvents: .ValueChanged)

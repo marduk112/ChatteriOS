@@ -9,12 +9,17 @@
 import Foundation
 import UIKit
 import SwiftKeychainWrapper
+import RealmSwift
 var betParticipantsList: [BetParticipant] = []
 class BetParticipantsViewController : UITableViewController {    
     let notificationCenter = NSNotificationCenter.defaultCenter()
     override func viewDidLoad() {
         super.viewDidLoad()
         notificationCenter.addObserver(self, selector: "notificationReceived:", name: GetParticipantsTaskFinishedNotificationName, object: nil)
+        /*let list = Realm().objects(BetParticipant)
+        for b in list {
+            betParticipantsList.append(b)
+        }    */    
         BetsRESTServices.getParticipantsRestService()
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: "refreshMethod:", forControlEvents: .ValueChanged)
@@ -58,7 +63,7 @@ class BetParticipantsViewController : UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ParticipantSegueIdentifier") as! UITableViewCell
         let bet = betParticipantsList[indexPath.row]
         cell.textLabel?.text = bet.UserName
-        if bet.Option! {
+        if bet.Option {
             cell.detailTextLabel?.text = "for"
         }
         else {

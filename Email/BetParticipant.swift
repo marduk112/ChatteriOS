@@ -7,8 +7,13 @@
 //
 
 import Foundation
-class BetParticipant {
-    var Id = 0
-    var UserName = ""
-    var Option: Bool?
+import RealmSwift
+class BetParticipant: Object {
+    dynamic var Id = 0
+    dynamic var UserName = ""
+    dynamic var Option = false
+    
+    override static func primaryKey() -> String? {
+        return "Id"
+    }
 }
