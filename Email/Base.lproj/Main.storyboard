@@ -131,7 +131,7 @@
             </objects>
             <point key="canvasLocation" x="2568" y="-971"/>
         </scene>
-        <!--Bet Participants View Controller-->
+        <!--Participants-->
         <scene sceneID="tZt-KA-p8S">
             <objects>
                 <tableViewController id="bDg-Kd-eON" customClass="BetParticipantsViewController" customModule="Email" customModuleProvider="target" sceneMemberID="viewController">
@@ -166,6 +166,13 @@
                             <outlet property="delegate" destination="bDg-Kd-eON" id="xEM-Gb-Fku"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Participants" id="oc6-Tb-LJe">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="W2X-25-8xq">
+                            <connections>
+                                <action selector="addParticipantButton:" destination="bDg-Kd-eON" id="dOJ-eN-rLS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Ooh-QI-JZo" id="gZC-BK-ecT"/>
                     </connections>
@@ -201,18 +208,6 @@
                                             <segue destination="JkE-I2-QHN" kind="show" identifier="" id="dHc-Bg-FR5"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UJv-dZ-4zY">
-                                        <rect key="frame" x="225" y="346" width="107" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="107" id="Njv-0x-jXW"/>
-                                        </constraints>
-                                        <state key="normal" title="Proceed to bet">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="clickProceedToBetButton:" destination="nw6-BU-rOg" eventType="touchUpInside" id="y49-hJ-dd1"/>
-                                        </connections>
-                                    </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J9u-Ms-8Vg">
                                         <rect key="frame" x="8" y="234" width="552" height="104"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -223,6 +218,18 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                                     </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GU0-v2-Yh7">
+                                        <rect key="frame" x="475" y="346" width="85" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="85" id="MeH-5q-uR8"/>
+                                        </constraints>
+                                        <state key="normal" title="Participants">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="bDg-Kd-eON" kind="show" id="aLf-ua-aZO"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DateCreated" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8C-Gp-Yhv">
                                         <rect key="frame" x="8" y="51" width="552" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -253,16 +260,16 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GU0-v2-Yh7">
-                                        <rect key="frame" x="475" y="346" width="85" height="30"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UJv-dZ-4zY">
+                                        <rect key="frame" x="225" y="346" width="107" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="85" id="MeH-5q-uR8"/>
+                                            <constraint firstAttribute="width" constant="107" id="Njv-0x-jXW"/>
                                         </constraints>
-                                        <state key="normal" title="Participants">
+                                        <state key="normal" title="Proceed to bet">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="bDg-Kd-eON" kind="show" id="aLf-ua-aZO"/>
+                                            <action selector="clickProceedToBetButton:" destination="nw6-BU-rOg" eventType="touchUpInside" id="y49-hJ-dd1"/>
                                         </connections>
                                     </button>
                                 </subviews>

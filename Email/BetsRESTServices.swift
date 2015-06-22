@@ -420,5 +420,37 @@ class BetsRESTServices {
         })
         task.resume()
     }
+    
+    class func proceedToBet(parameters: [String : String]) {
+        var request : NSMutableURLRequest = NSMutableURLRequest()
+        request.URL = NSURL(string: restServiceUrl + "/api/BetParticipants")
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer " + KeychainWrapper.stringForKey("Token")!, forHTTPHeaderField: "Authorization")
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("Body: \(strData)")
+            if(error != nil) {
+                println(err!.localizedDescription)
+                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                println("Error could not parse JSON: '\(jsonStr)'")
+                dispatch_async(dispatch_get_main_queue(), {
+                    NSNotificationCenter.defaultCenter().postNotificationName(ProceedToBetTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : error.localizedDescription])
+                })
+            }
+            else {
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    NSNotificationCenter.defaultCenter().postNotificationName(ProceedToBetTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Ok.rawValue])
+                })
+            }
+        })
+        task.resume()
+    }
 
 }

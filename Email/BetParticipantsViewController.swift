@@ -16,6 +16,7 @@ class BetParticipantsViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         notificationCenter.addObserver(self, selector: "notificationReceived:", name: GetParticipantsTaskFinishedNotificationName, object: nil)
+        notificationCenter.addObserver(self, selector: "notificationReceived:", name: ProceedToBetTaskFinishedNotificationName, object: nil)
         /*let list = Realm().objects(BetParticipant)
         for b in list {
             betParticipantsList.append(b)
@@ -38,6 +39,34 @@ class BetParticipantsViewController : UITableViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()       
+    }
+    @IBAction func addParticipantButton(sender: AnyObject) {
+        let userName = KeychainWrapper.stringForKey("UserName")!
+        if (currentlyConsiderationBet?.EndDate.compare(NSDate()) == NSComparisonResult.OrderedAscending && userName != currentlyConsiderationBet?.User.UserName) {
+            var parameters = ["BetId" : String(currentlyConsiderationBet!.Id)]
+            let alertController = UIAlertController(title: "Proceed to bet", message: "for or against", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+            let forAction = UIAlertAction(title: "For", style: UIAlertActionStyle.Default) { (action) -> Void in
+                parameters["Option"] = "true"
+                BetsRESTServices.proceedToBet(parameters)
+            }
+            let againstAction = UIAlertAction(title: "Against", style: UIAlertActionStyle.Default) { (action) -> Void in
+                parameters["Option"] = "false"
+                BetsRESTServices.proceedToBet(parameters)
+            }
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(againstAction)
+            alertController.addAction(forAction)
+            presentViewController(alertController, animated: true, completion: nil)
+        }
+        else {
+            let alert = UIAlertView()
+            alert.title = "Info"
+            alert.message = "You cannot procced to your own bet"
+            alert.addButtonWithTitle("OK")
+            alert.show()
+        }
     }
     
     func notificationReceived(notification: NSNotification) {
