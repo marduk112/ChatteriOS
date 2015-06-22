@@ -647,7 +647,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="XSt-pf-sK5">
-                                <rect key="frame" x="16" y="103" width="568" height="440"/>
+                                <rect key="frame" x="16" y="124" width="568" height="440"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="rewardSegueIdentifier" textLabel="n2m-Qi-toQ" detailTextLabel="GSh-ln-z8m" style="IBUITableViewCellStyleValue1" id="vxe-dG-vS6">
@@ -672,18 +672,29 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rewards" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1s-8f-JCH">
+                                <rect key="frame" x="34" y="103" width="69" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="69" id="0yP-Db-2W5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="O1s-8f-JCH" firstAttribute="top" secondItem="iwg-jz-5Jf" secondAttribute="bottom" constant="8" symbolic="YES" id="0ka-ba-Yh6"/>
                             <constraint firstItem="Jhc-Y1-m66" firstAttribute="bottom" secondItem="3JI-k3-t56" secondAttribute="top" id="126-rj-JUc"/>
                             <constraint firstItem="Jhc-Y1-m66" firstAttribute="top" secondItem="jzG-xc-P0f" secondAttribute="top" id="1D9-RJ-fao"/>
-                            <constraint firstItem="3JI-k3-t56" firstAttribute="top" secondItem="XSt-pf-sK5" secondAttribute="bottom" constant="8" symbolic="YES" id="1Ic-q3-sjI"/>
+                            <constraint firstItem="3JI-k3-t56" firstAttribute="top" secondItem="XSt-pf-sK5" secondAttribute="bottom" constant="-13" id="1Ic-q3-sjI"/>
                             <constraint firstItem="XSt-pf-sK5" firstAttribute="leading" secondItem="jzG-xc-P0f" secondAttribute="leadingMargin" id="2a1-XL-dlm"/>
+                            <constraint firstItem="O1s-8f-JCH" firstAttribute="leading" secondItem="iwg-jz-5Jf" secondAttribute="leading" id="419-Bh-WXb"/>
                             <constraint firstItem="XSt-pf-sK5" firstAttribute="centerX" secondItem="Jhc-Y1-m66" secondAttribute="centerX" id="BmZ-S5-S4l"/>
                             <constraint firstItem="Jhc-Y1-m66" firstAttribute="leading" secondItem="jzG-xc-P0f" secondAttribute="leading" id="DXl-FA-2e0"/>
                             <constraint firstAttribute="trailing" secondItem="Jhc-Y1-m66" secondAttribute="trailing" id="SVw-iA-osZ"/>
                             <constraint firstItem="yAx-pQ-HAd" firstAttribute="leading" secondItem="iwg-jz-5Jf" secondAttribute="leading" id="XWZ-62-qyW"/>
-                            <constraint firstItem="XSt-pf-sK5" firstAttribute="top" secondItem="iwg-jz-5Jf" secondAttribute="bottom" constant="8" symbolic="YES" id="ieY-So-jHM"/>
+                            <constraint firstItem="XSt-pf-sK5" firstAttribute="top" secondItem="iwg-jz-5Jf" secondAttribute="bottom" constant="29" id="ieY-So-jHM"/>
                             <constraint firstItem="yAx-pQ-HAd" firstAttribute="top" secondItem="rap-jI-j7L" secondAttribute="bottom" constant="8" id="nf6-5G-0jF"/>
                             <constraint firstItem="iwg-jz-5Jf" firstAttribute="top" secondItem="yAx-pQ-HAd" secondAttribute="bottom" constant="25" id="res-sj-i8n"/>
                             <constraint firstItem="yAx-pQ-HAd" firstAttribute="leading" secondItem="jzG-xc-P0f" secondAttribute="leading" constant="34" id="tgM-DF-bMh"/>
