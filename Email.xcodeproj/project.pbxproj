@@ -14,6 +14,7 @@
 		34501AC91B11E76100611306 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34501ACB1B11E76100611306 /* Main.storyboard */; };
 		34501ACD1B11EAD000611306 /* BetComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34501ACC1B11EAD000611306 /* BetComment.swift */; };
 		34501ACF1B11F1D000611306 /* CommentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34501ACE1B11F1D000611306 /* CommentDetailsViewController.swift */; };
+		345A27B91B3820410044C3FC /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345A27B81B3820410044C3FC /* Reward.swift */; };
 		345D55811AF292740014280F /* BetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345D55801AF292740014280F /* BetsViewController.swift */; };
 		345D55831AF292BB0014280F /* MyBetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345D55821AF292BB0014280F /* MyBetsViewController.swift */; };
 		345D9B981AE3B40F00FB2915 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345D9B971AE3B40F00FB2915 /* RegisterViewController.swift */; };
@@ -66,6 +67,7 @@
 		34501ACA1B11E76100611306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		34501ACC1B11EAD000611306 /* BetComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetComment.swift; sourceTree = "<group>"; };
 		34501ACE1B11F1D000611306 /* CommentDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentDetailsViewController.swift; sourceTree = "<group>"; };
+		345A27B81B3820410044C3FC /* Reward.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 		345D55801AF292740014280F /* BetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetsViewController.swift; sourceTree = "<group>"; };
 		345D55821AF292BB0014280F /* MyBetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBetsViewController.swift; sourceTree = "<group>"; };
 		345D9B971AE3B40F00FB2915 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				34997DCE1AF3CC1A0045B70B /* Bet.swift */,
 				34501ACC1B11EAD000611306 /* BetComment.swift */,
 				3495FD541B36D1CC0006137D /* BetParticipant.swift */,
+				345A27B81B3820410044C3FC /* Reward.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				34501ACD1B11EAD000611306 /* BetComment.swift in Sources */,
 				34997DD11AF3CF740045B70B /* BetDetailsViewController.swift in Sources */,
 				345D55811AF292740014280F /* BetsViewController.swift in Sources */,
+				345A27B91B3820410044C3FC /* Reward.swift in Sources */,
 				347B67981AE2A537003DCEE1 /* AuthenticationAndRegistration.swift in Sources */,
 				344D182A1AEC05CB00A70C5A /* Consts.swift in Sources */,
 				341288A31B3705F300B00ED9 /* BetsRESTServices.swift in Sources */,

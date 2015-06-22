@@ -36,6 +36,8 @@ let ProceedToBetTaskFinishedNotificationName = "ProceedToBetTaskFinishedNotifica
 let LogoutTaskFinishedNotificationName = "LogoutTaskFinishedNotificationName"
 let LogoutTaskStartNotificationName = "LogoutTaskStartNotificationName"
 let GetUserPointsTaskStartNotificationName = "GetUserPointsTaskStartNotificationName"
+let GetRewardsTaskStartNotificationName = "GetRewardsTaskStartNotificationName"
+let ChooseRewardsTaskStartNotificationName = "ChooseRewardsTaskStartNotificationName"
 
 func secondOffsetFromGMT() -> Int { return NSTimeZone.systemTimeZone().secondsFromGMT }
 

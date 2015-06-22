@@ -353,5 +353,72 @@ class BetsRESTServices {
         })
         task.resume()
     }
+    
+    class func getRewards() {
+        let request : NSMutableURLRequest = NSMutableURLRequest()
+        request.URL = NSURL(string: restServiceUrl + "/api/Rewards")
+        let session = NSURLSession.sharedSession()
+        request.HTTPMethod = "GET"
+        var err: NSError?
+        //request.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer " + KeychainWrapper.stringForKey("Token")!, forHTTPHeaderField: "Authorization")
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            
+            if error == nil {
+                let json = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &err) as! NSArray
+                for temp in json {
+                    let t = temp as! NSDictionary
+                    let reward = Reward()
+                    reward.Id = t["Id"] as! Int
+                    reward.Name = t["Name"] as! String
+                    reward.Value = t["Value"] as! Int
+                    reward.Quantity = t["Quantity"] as! Int
+                    rewardsList.append(reward)
+                }
+                dispatch_async(dispatch_get_main_queue(), {
+                    NSNotificationCenter.defaultCenter().postNotificationName(GetRewardsTaskStartNotificationName, object: nil, userInfo: ["status" : Status.Ok.rawValue])
+                })
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    NSNotificationCenter.defaultCenter().postNotificationName(GetRewardsTaskStartNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : error.localizedDescription])
+                })
+            }
+            
+        })
+        task.resume()
+    }
+    
+    class func chooseReward(id: Int) {
+        let request : NSMutableURLRequest = NSMutableURLRequest()
+        request.URL = NSURL(string: restServiceUrl + "/api/Rewards/\(id)")
+        let session = NSURLSession.sharedSession()
+        request.HTTPMethod = "GET"
+        var err: NSError?
+        //request.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer " + KeychainWrapper.stringForKey("Token")!, forHTTPHeaderField: "Authorization")
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            
+            if error == nil {
+                let json = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &err) as! NSArray                
+                dispatch_async(dispatch_get_main_queue(), {
+                    NSNotificationCenter.defaultCenter().postNotificationName(ChooseRewardsTaskStartNotificationName, object: nil, userInfo: ["status" : Status.Ok.rawValue])
+                })
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    NSNotificationCenter.defaultCenter().postNotificationName(ChooseRewardsTaskStartNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : error.localizedDescription])
+                })
+            }
+            
+        })
+        task.resume()
+    }
 
 }
