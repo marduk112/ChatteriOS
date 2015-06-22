@@ -45,11 +45,22 @@ class LoginViewController: UIViewController {
                 showViewController(vc as! UIViewController, sender: nil)
             }
         }
-        enableButton(false)
-        activityIndicator.startAnimating()
-        let auth = AuthenticationAndRegistration()
-        auth.authentication(emailTextField.text, password: passwordTextField.text)
-        println("s")
+        let email = emailTextField.text
+        let password = passwordTextField.text
+        if (email =~ EMAIL_PATTERN) && (password =~ PASSWORD_PATTERN) {
+            enableButton(false)
+            activityIndicator.startAnimating()
+            let auth = AuthenticationAndRegistration()
+            auth.authentication(emailTextField.text, password: passwordTextField.text)
+            println("s")
+        }
+        else {
+            let alert = UIAlertView()
+            alert.title = "Error"
+            alert.message = "The request is invalid.\nThe Email field is required.\nThe Password must be at least 6 characters long."
+            alert.addButtonWithTitle("OK")
+            alert.show()
+        }
     }
     
     deinit {

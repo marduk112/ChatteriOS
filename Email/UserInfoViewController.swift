@@ -35,7 +35,7 @@ class UserInfoViewController : UIViewController {
         }
         else {
             let userName = KeychainWrapper.stringForKey("UserName")
-            userNameLabel.text = "Your name \(userName)"
+            userNameLabel.text = "Your name \(userName!)"
             pointsLabel.text = "You have \(authData.points) points"
         }
     }

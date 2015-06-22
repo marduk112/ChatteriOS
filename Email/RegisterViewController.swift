@@ -27,10 +27,21 @@ class RegisterViewController : UIViewController{
     }
     
     @IBAction func registerButtonPressed(sender: AnyObject) {
-        registerButton.enabled = false
-        activityIndicator.startAnimating()
-        let registration = AuthenticationAndRegistration()
-        registration.registration(emailTextField.text, password: passwordTextField.text, confirmPassword: confirmPasswordTextField.text)        
+        let email = emailTextField.text
+        let password = passwordTextField.text
+        if (email =~ EMAIL_PATTERN) && (password =~ PASSWORD_PATTERN) && (password == confirmPasswordTextField.text) {
+            registerButton.enabled = false
+            activityIndicator.startAnimating()
+            let registration = AuthenticationAndRegistration()
+            registration.registration(emailTextField.text, password: passwordTextField.text, confirmPassword: confirmPasswordTextField.text)
+        }
+        else {
+            let alert = UIAlertView()
+            alert.title = "Error"
+            alert.message = "The request is invalid.\nThe Email field is required.\nThe Password must be at least 6 characters long."
+            alert.addButtonWithTitle("OK")
+            alert.show()
+        }
     }
     deinit {
         notificationCenter.removeObserver(self)

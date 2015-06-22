@@ -320,8 +320,8 @@ class BetsRESTServices {
         request.addValue("Bearer " + KeychainWrapper.stringForKey("Token")!, forHTTPHeaderField: "Authorization")
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             println("Response: \(response)")
-            if let httpResponse = response as? NSHTTPURLResponse {
-                if httpResponse.statusCode == 200 {
+            
+            if error == nil {
                     let json = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &err) as! NSDictionary
                     authData.points = json["Points"] as! Int
                     dispatch_async(dispatch_get_main_queue(), {
@@ -330,10 +330,10 @@ class BetsRESTServices {
                 }
                 else {
                     dispatch_async(dispatch_get_main_queue(), {
-                        NSNotificationCenter.defaultCenter().postNotificationName(GetUserPointsTaskStartNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : "Error with getting points"])
+                        NSNotificationCenter.defaultCenter().postNotificationName(GetUserPointsTaskStartNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : error.localizedDescription])
                     })
                 }
-            }
+            
         })
         task.resume()
     }

@@ -41,6 +41,7 @@ class AuthenticationAndRegistration{
                         })
                     }
                     else {
+                        
                         dispatch_async(dispatch_get_main_queue(), {
                             NSNotificationCenter.defaultCenter().postNotificationName(RegisterTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : "Bad request"])
                         })
@@ -69,12 +70,12 @@ class AuthenticationAndRegistration{
             var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary
             
             // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
-            if(err != nil) {
+            if(error != nil) {
                 println(err!.localizedDescription)
                 let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                 println("Error could not parse JSON: '\(jsonStr)'")
                 dispatch_async(dispatch_get_main_queue(), {
-                    NSNotificationCenter.defaultCenter().postNotificationName(AuthTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : err!.localizedDescription])
+                    NSNotificationCenter.defaultCenter().postNotificationName(AuthTaskFinishedNotificationName, object: nil, userInfo: ["status" : Status.Error.rawValue, "error" : error.localizedDescription])
                 })
             }
             else {

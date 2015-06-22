@@ -15,6 +15,12 @@ class AuthenticationData {
     var userName = ""
     var points = 0
 }
+
+
+let EMAIL_PATTERN = "[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})";
+let PASSWORD_PATTERN = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}";
+
+
 var currentlyConsiderationBet: Bet?
 let authData = AuthenticationData()
 let restServiceUrl = "http://chatterrest.apphb.com"
@@ -30,7 +36,29 @@ let ProceedToBetTaskFinishedNotificationName = "ProceedToBetTaskFinishedNotifica
 let LogoutTaskFinishedNotificationName = "LogoutTaskFinishedNotificationName"
 let LogoutTaskStartNotificationName = "LogoutTaskStartNotificationName"
 let GetUserPointsTaskStartNotificationName = "GetUserPointsTaskStartNotificationName"
+
 func secondOffsetFromGMT() -> Int { return NSTimeZone.systemTimeZone().secondsFromGMT }
+
+infix operator =~ {}
+func =~ (input: String, pattern: String) -> Bool {
+    return Regex(pattern).test(input)
+}
+class Regex {
+    let internalExpression: NSRegularExpression
+    let pattern: String
+    
+    init(_ pattern: String) {
+        self.pattern = pattern
+        var error: NSError?
+        self.internalExpression = NSRegularExpression(pattern: pattern, options: .CaseInsensitive, error: &error)!
+    }
+    
+    func test(input: String) -> Bool {
+        let matches = self.internalExpression.matchesInString(input, options: nil, range:NSMakeRange(0, count(input)))
+        return matches.count > 0
+    }
+}
+
 public class Reachability {
     class func checkConnectedToNetwork() {
         if Reachability.isConnectedToNetwork() == true {

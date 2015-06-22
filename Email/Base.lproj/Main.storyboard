@@ -600,7 +600,18 @@
                     <view key="view" contentMode="scaleToFill" id="wf2-ae-iae">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AuthAndRegImage" translatesAutoresizingMaskIntoConstraints="NO" id="6Ia-xJ-Sh4">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6Ia-xJ-Sh4" firstAttribute="leading" secondItem="wf2-ae-iae" secondAttribute="leading" id="2VF-54-Un3"/>
+                            <constraint firstItem="6Ia-xJ-Sh4" firstAttribute="bottom" secondItem="HT2-2G-tUL" secondAttribute="top" id="3nJ-Je-Fc2"/>
+                            <constraint firstAttribute="trailing" secondItem="6Ia-xJ-Sh4" secondAttribute="trailing" id="5ZY-vu-r00"/>
+                            <constraint firstItem="6Ia-xJ-Sh4" firstAttribute="top" secondItem="wf2-ae-iae" secondAttribute="top" id="pm2-dl-ZAY"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Logout" id="eZm-qN-Ybg"/>
                 </viewController>
@@ -620,20 +631,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAx-pQ-HAd">
-                                <rect key="frame" x="34" y="28" width="84" height="21"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AuthAndRegImage" translatesAutoresizingMaskIntoConstraints="NO" id="Jhc-Y1-m66">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAx-pQ-HAd">
+                                <rect key="frame" x="34" y="28" width="79" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You have ... points" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iwg-jz-5Jf">
-                                <rect key="frame" x="34" y="74" width="151" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have ... points" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iwg-jz-5Jf">
+                                <rect key="frame" x="34" y="74" width="142" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Jhc-Y1-m66" firstAttribute="bottom" secondItem="3JI-k3-t56" secondAttribute="top" id="126-rj-JUc"/>
+                            <constraint firstItem="Jhc-Y1-m66" firstAttribute="top" secondItem="jzG-xc-P0f" secondAttribute="top" id="1D9-RJ-fao"/>
+                            <constraint firstItem="Jhc-Y1-m66" firstAttribute="leading" secondItem="jzG-xc-P0f" secondAttribute="leading" id="DXl-FA-2e0"/>
+                            <constraint firstAttribute="trailing" secondItem="Jhc-Y1-m66" secondAttribute="trailing" id="SVw-iA-osZ"/>
+                            <constraint firstItem="yAx-pQ-HAd" firstAttribute="leading" secondItem="iwg-jz-5Jf" secondAttribute="leading" id="XWZ-62-qyW"/>
+                            <constraint firstItem="yAx-pQ-HAd" firstAttribute="top" secondItem="rap-jI-j7L" secondAttribute="bottom" constant="8" id="nf6-5G-0jF"/>
+                            <constraint firstItem="iwg-jz-5Jf" firstAttribute="top" secondItem="yAx-pQ-HAd" secondAttribute="bottom" constant="25" id="res-sj-i8n"/>
+                            <constraint firstItem="yAx-pQ-HAd" firstAttribute="leading" secondItem="jzG-xc-P0f" secondAttribute="leading" constant="34" id="tgM-DF-bMh"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="User info" id="cJs-aA-TqZ"/>
                     <connections>
